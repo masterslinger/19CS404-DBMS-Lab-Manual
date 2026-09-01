@@ -25,7 +25,7 @@ INSERT INTO table_name SELECT * FROM other_table WHERE condition;
 ```
 ### 2. UPDATE
 Used to modify records in a relation.
-Syntax: 
+Syntax:
 ```sql
 UPDATE table_name SET column1 = value1, column2 = value2 WHERE condition;
 ```
@@ -47,144 +47,162 @@ SELECT column1, column2 FROM table_name WHERE condition;
 ```
 **Question 1**
 --
-<img width="1405" height="516" alt="image" src="https://github.com/user-attachments/assets/8d8b4fee-8a7d-4514-9e36-f6f868ec07d1" />
+Write a SQL query to calculate the original price using the discount percentage and the given discounted price. Return product_id, discounted_price, discount_percentage, and original_price.
 
--- 
-
-```sql
-Update Products
-set reorder_lvl=20
-where quantity<10 and category='Snacks';
+```
+SELECT
+    product_id,
+    discounted_price,
+    discount_percentage,
+    discounted_price/(1-discount_percentage) AS original_price
+FROM products;
 ```
 
 **Output:**
 
-<img width="1311" height="501" alt="image" src="https://github.com/user-attachments/assets/29029ffa-4bc1-4e2d-b74e-6aba586674f1" />
+<img width="1212" height="228" alt="sm1" src="https://github.com/user-attachments/assets/65d97c7c-8c40-4d41-a89c-c12e6969b377" />
 
 
 **Question 2**
 ---
-<img width="1355" height="462" alt="image" src="https://github.com/user-attachments/assets/91a8f5e9-e8d1-40dd-b763-9d6c8a8764cd" />
+write a SQL query to create a union of two queries that shows the customer id, cities, and ratings of all customers. Those with a rating of 300 or greater will have the words 'High Rating', while the others will have the words 'Low Rating'.
 
-```sql
-update Employees
-set email='not available',commission_pct=0.55
-where department_id=110;
+```
+SELECT customer_id,city,grade,
+CASE
+    WHEN grade>=300 THEN 'High Rating'
+    ELSE 'Low Rating'
+END AS Rating
+FROM customer
+ORDER BY customer_id;
 ```
 
 **Output:**
-
-<img width="1300" height="347" alt="image" src="https://github.com/user-attachments/assets/20e35676-58cc-4aec-a285-c9773a7e3f22" />
+<img width="962" height="470" alt="image" src="https://github.com/user-attachments/assets/745b6d43-8eea-4baf-80ff-c2d404f56f12" />
 
 
 **Question 3**
 ---
-<img width="1237" height="545" alt="image" src="https://github.com/user-attachments/assets/5d804bf0-a547-4344-8b50-7dd16318b7df" />
+Write a SQL query to find customers who are either from the city 'New York' or who do not have a grade greater than 100. Return customer_id, cust_name, city, grade, and salesman_id.
 
-```sql
-update Employees
-set salary=salary+500,email='updated'
-where job_id='SA_REP' and commission_pct>0.15;
+```
+SELECT customer_id,cust_name,city,grade,salesman_id
+FROM customer
+WHERE city='New York' OR grade<=100;
 ```
 
 **Output:**
+<img width="1182" height="352" alt="sm3" src="https://github.com/user-attachments/assets/ae3fcaa3-a784-4c53-87ac-9ed174b229ce" />
 
-<img width="1302" height="465" alt="image" src="https://github.com/user-attachments/assets/50f2f964-e1dd-43ac-a0e9-4780b8dad139" />
 
 **Question 4**
 ---
-<img width="1113" height="418" alt="image" src="https://github.com/user-attachments/assets/7374465e-bb71-45ea-8913-cd33c46a0959" />
+Write a query to retrieve the first four characters of  EmpLname from the EmployeeInfo table.
 
-```sql
-Update Products
-set reorder_lvl=(reorder_lvl*0.7)
-where cost_price>50 and quantity<100;
+```
+SELECT SUBSTR(EmpLname, 1, 4)
+FROM EmployeeInfo;
 ```
 
 **Output:**
+<img width="876" height="281" alt="image" src="https://github.com/user-attachments/assets/132a5242-3900-49c2-9d38-ca77bdd949da" />
 
-<img width="1303" height="403" alt="image" src="https://github.com/user-attachments/assets/569ea59e-c6c2-4a30-bb40-9c312536b72d" />
 
 **Question 5**
 ---
-<img width="1102" height="532" alt="image" src="https://github.com/user-attachments/assets/fd313724-bd95-40c0-b6e5-a46f93b820f6" />
+Write a SQL query to Delete customers from 'customer' table where 'GRADE' is less than 2.
 
-```sql
-update Employees
-set email='Unavailable';
+```
+DELETE FROM customer 
+WHERE grade<2;
 ```
 
 **Output:**
-<img width="1143" height="397" alt="image" src="https://github.com/user-attachments/assets/fe215009-c97c-46fd-b8cd-d7da40de6528" />
+<img width="921" height="488" alt="image" src="https://github.com/user-attachments/assets/d5a850b9-5121-444b-8400-16e249948618" />
+
 
 **Question 6**
 ---
-<img width="1425" height="475" alt="image" src="https://github.com/user-attachments/assets/46c0a2ba-61f2-4bb3-b504-2bd60f9266fb" />
+Write a SQL query to Select all patients who were admitted for one day.
 
-```sql
-delete from Customer
-where cust_city like "L%";
+```
+SELECT 
+    patient_id,
+    first_name,
+    admission_date,
+    discharge_date
+FROM Patients
+WHERE admission_date=discharge_date;
 ```
 
 **Output:**
-<img width="1400" height="797" alt="image" src="https://github.com/user-attachments/assets/6ce7f498-f4d2-42d5-9850-bf26cd36763f" />
+<img width="1188" height="281" alt="image" src="https://github.com/user-attachments/assets/2f509e36-4544-4743-8d6b-4660a7939130" />
+
 
 **Question 7**
 ---
-<img width="1165" height="460" alt="image" src="https://github.com/user-attachments/assets/060344ec-00b0-4ea9-a3eb-d417d832168a" />
+Write a SQL statement to Update the per_unit_price to 25 and total_price accordingly in purchases table where purchase_date is '2022-08-15' and product_id is 12.
 
-```sql
-delete from customer
-where GRADE=2;
+```
+UPDATE purchases
+SET
+    per_unit_price=25,
+    total_price=quantity*25
+WHERE purchase_date='2022-08-15'
+  AND product_id=12;
 ```
 
 **Output:**
-
-<img width="543" height="461" alt="image" src="https://github.com/user-attachments/assets/580a7b35-447a-42bc-b3cc-f539bcdcd186" />
+<img width="1782" height="343" alt="image" src="https://github.com/user-attachments/assets/53730ab8-344c-46fc-8499-4ead07c4af9c" />
 
 
 **Question 8**
 ---
-<img width="750" height="439" alt="image" src="https://github.com/user-attachments/assets/267b2234-0a5f-40e3-bea8-0e654db3b050" />
+Change the supplier name to upper case where contact person contains ' Singh' in suppliers table.
 
-```sql
-delete from Surgeries
-where surgery_id=3 or surgeon_id=4;
+```
+UPDATE suppliers
+SET supplier_name=UPPER(supplier_name)
+WHERE contact_person LIKE '%Singh%';
 ```
 
 **Output:**
 
-<img width="894" height="679" alt="image" src="https://github.com/user-attachments/assets/510c52d6-09c0-427c-8dcd-39c5fbecb75e" />
+<img width="1781" height="216" alt="image" src="https://github.com/user-attachments/assets/801c35df-2dc2-4941-a920-032811130dc2" />
+
 
 **Question 9**
 ---
-<img width="1424" height="608" alt="image" src="https://github.com/user-attachments/assets/b0a8b063-3034-4c28-8a12-e87808197e09" />
----
-```sql
-delete from customer
-where CUST_COUNTRY='India' and not CUST_CITY='Chennai';
+Show the categoryName and description from the categories table sorted by categoryName.
+
+```
+SELECT 
+    CategoryName,
+    Description
+FROM categories
+ORDER BY CategoryName;
 ```
 
 **Output:**
+<img width="1182" height="527" alt="image" src="https://github.com/user-attachments/assets/2db3d2db-498a-4467-9659-c92cae4f07f9" />
 
-<img width="1335" height="662" alt="image" src="https://github.com/user-attachments/assets/df1a0f0e-ae2d-41b4-9ca6-70653d18d794" />
 
 **Question 10**
 ---
-<img width="814" height="351" alt="image" src="https://github.com/user-attachments/assets/eeab46a8-6c17-4f8f-901f-dd84ef6c08d1" />
+Write a SQL query to Delete a Specific Surgery which was made on 28th Feb 2024.
 
-```sql
-delete from Surgeries
-where surgery_date='2024-02-28';
+```
+DELETE FROM Surgeries
+WHERE surgery_date='2024-02-28';
 ```
 
 **Output:**
 
-<img width="908" height="301" alt="image" src="https://github.com/user-attachments/assets/f73e98f7-383b-4ec2-b341-60a6bf45275d" />
+<img width="1203" height="321" alt="image" src="https://github.com/user-attachments/assets/fd7a2899-2049-44b8-b190-b95241d45da9" />
 
-## GRADE:
+## MODULE 2 GRADE
 
-<img width="506" height="172" alt="image" src="https://github.com/user-attachments/assets/371ddac3-92d8-47b2-9bba-5d9f9a9c8e1a" />
+<img width="1136" height="77" alt="sm4" src="https://github.com/user-attachments/assets/1c87a766-8208-4e05-943f-6f3aea53d6a3" />
 
 ## RESULT
 Thus, the SQL queries to implement DML commands have been executed successfully.

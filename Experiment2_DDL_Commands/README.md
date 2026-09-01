@@ -105,78 +105,166 @@ CREATE TABLE Table_Name (
 
 **Question 1**
 --
-Create a table named Department with the following constraints:
-DepartmentID as INTEGER should be the primary key.
-DepartmentName as TEXT should be unique and not NULL.
-Location as TEXT.
-```
-create table Department(DepartmentID INTEGER PRIMARY KEY,DepartmentName text UNIQUE NOT NULL,Location text);
-```
-
-**Output:**
-
-<img width="1739" height="771" alt="image" src="https://github.com/user-attachments/assets/a5a651cd-ef00-4448-bcad-3eaad949d39f" />
-
-**Question 2**
----
-Create a table named Customers with the following columns:
-
-CustomerID as INTEGER
-Name as TEXT
-Email as TEXT
-JoinDate as DATETIME
-```
-create table Customers(CustomerID INTEGER,Name TEXT,Email TEXT,JoinDate DATETIME);
-```
-
-**Output:**
-
-<img width="1811" height="1032" alt="image" src="https://github.com/user-attachments/assets/abc3f1dc-5cf3-4a63-9346-0c8a46520086" />
-
-**Question 3**
----
-Insert a student with RollNo 201, Name David Lee, Gender M, Subject Physics, and MARKS 92 into the Student_details table.
-
-
-```
-insert into Student_details (RollNo,Name,Gender,Subject,MARKS) values (201,"David Lee","M","Physics",92);
-```
-
-**Output:**
-
-<img width="1854" height="913" alt="image" src="https://github.com/user-attachments/assets/7d960a29-bc48-4a57-b3ae-bfb4fd965631" />
-
-**Question 4**
----
-Create a table named Shipments with the following constraints:
-ShipmentID as INTEGER should be the primary key.
-ShipmentDate as DATE.
-SupplierID as INTEGER should be a foreign key referencing Suppliers(SupplierID).
-OrderID as INTEGER should be a foreign key referencing Orders(OrderID).
-
-```
-create table Shipments (ShipmentID INTEGER PRIMARY KEY,ShipmentDate DATE,SupplierID INTEGER,OrderID INTEGER,FOREIGN KEY(SupplierID) REFERENCES Suppliers(SupplierID),FOREIGN KEY(OrderID) REFERENCES Orders(OrderID));
-```
-
-**Output:**
-
-<img width="1807" height="919" alt="image" src="https://github.com/user-attachments/assets/ffec72e1-3283-4182-8dfb-fb47958909b7" />
-
-**Question 5**
----
 Insert all employees from Former_employees into Employee
 
 Table attributes are EmployeeID, Name, Department, Salary
 
 ```
-insert into Employee(EmployeeID,Name,Department,Salary) select EmployeeID,Name,Department,Salary from Former_employees;
+INSERT INTO Employee(EmployeeID, Name, Department, Salary)
+SELECT EmployeeID, Name, Department, Salary
+FROM Former_employees;
 ```
 
 **Output:**
 
-<img width="1722" height="945" alt="image" src="https://github.com/user-attachments/assets/16eed565-1261-4763-97e2-39c7505128dd" />
+<img width="1188" height="277" alt="dm1" src="https://github.com/user-attachments/assets/00cf41e1-fffd-4b21-a080-6a30d31a817f" />
+
+
+**Question 2**
+---
+create a table named jobs including columns job_id, job_title, min_salary and max_salary, and make sure that, the default value for job_title is blank and min_salary is 8000 and max_salary is NULL will be entered automatically at the time of insertion if no value assigned for the specified columns.
+
+```
+CREATE TABLE jobs (
+    job_id INTEGER,
+    job_title TEXT DEFAULT ' ',
+    min_salary INTEGER DEFAULT 8000,
+    max_salary INTEGER DEFAULT NULL
+);
+```
+
+**Output:**
+<img width="1797" height="242" alt="dm2" src="https://github.com/user-attachments/assets/63042a6d-8eed-4071-826c-12c0fcde2a9d" />
+
+
+
+**Question 3**
+---
+Write a SQL Query  to add attribute Date_of_joining as Date and rename the attribute job_title as Designation in the table 'Employees'
+
+```
+ALTER TABLE Employees
+ADD COLUMN Date_of_joining Date;
+ALTER TABLE Employees
+RENAME COLUMN job_title TO
+Designation;
+```
+
+**Output:**
+
+<img width="1270" height="253" alt="dm3" src="https://github.com/user-attachments/assets/4995f2d6-971d-4c3b-9fa0-3ec26d6d14f8" />
+
+
+**Question 4**
+---
+Insert the below data into the Employee table, allowing the Department and Salary columns to take their default values.
+
+```
+INSERT INTO Employee(EmployeeID,Name,Position)
+VALUES(4,'Emily White','Analyst')
+```
+
+**Output:**
+<img width="1127" height="296" alt="dm4" src="https://github.com/user-attachments/assets/9ee77a39-0a20-4c67-ae1d-c5de5900542d" />
+
+
+**Question 5**
+---
+
+In the Student_details table, insert a student record where some fields are NULL, another record where all fields are filled without any NULL values, and a third record where some fields are filled, and others are left as NULL.
+```
+INSERT INTO Student_details(RollNo,Name,Gender,Subject,Marks) VALUES
+(205, 'Olivia Green', 'F', NULL, NULL),
+(207, 'Liam Smith', 'M', 'Mathematics', 85),
+(208, 'Sophia Johnson', 'F', 'Science', NULL);
+```
+
+**Output:**
+
+<img width="1226" height="210" alt="dm5" src="https://github.com/user-attachments/assets/3fb3f3eb-048f-46a3-81a2-ba65ae3473c6" />
 
 **Question 6**
+---
+
+Write a SQL Query to add an attribute designation in the employee table with the data type VARCHAR(50).
+```
+ALTER TABLE employee
+ADD COLUMN designation varchar(50);
+```
+
+**Output:**
+<img width="1267" height="217" alt="dm6" src="https://github.com/user-attachments/assets/9f4c94b9-3bf4-4bc7-b172-c2f0227cb796" />
+
+**Question 7**
+---
+Create a new table named item with the following specifications and constraints:
+1. item_id as TEXT and as primary key.
+2. item_desc as TEXT.
+3. rate as INTEGER.
+4. icom_id as TEXT with a length of 4.
+5. icom_id is a foreign key referencing com_id in the company table.
+6. The foreign key should cascade updates and deletes.
+7. item_desc and rate should not accept NULL.
+
+```
+CREATE TABLE item (
+    item_id TEXT PRIMARY KEY,
+    item_desc TEXT NOT NULL,
+    rate INTEGER NOT NULL,
+    icom_id TEXT,
+    FOREIGN KEY (icom_id) REFERENCES company(com_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+```
+
+**Output:**
+<img width="1247" height="242" alt="dm7" src="https://github.com/user-attachments/assets/8d1dbe4e-6839-42b0-809a-9a244637330a" />
+
+
+**Question 8**
+---
+Create a table named Department with the following constraints:
+DepartmentID as INTEGER should be the primary key.
+DepartmentName as TEXT should be unique and not NULL.
+Location as TEXT.
+
+```
+CREATE TABLE Department(
+  DepartmentID INTEGER PRIMARY KEY,
+  DepartmentName TEXT NOT NULL UNIQUE,
+  Location TEXT
+);
+```
+
+**Output:**
+<img width="1831" height="188" alt="dm8" src="https://github.com/user-attachments/assets/8a102271-879b-4921-8dd1-267f2a8a9274" />
+
+
+
+**Question 9**
+---
+Create a table named Products with the following columns:
+
+ProductID as INTEGER
+ProductName as TEXT
+Price as REAL
+Stock as INTEGER
+
+```
+CREATE TABLE Products(
+    ProductID INTEGER,
+    ProductName TEXT,
+    Price REAL,
+    Stock INTEGER
+);
+```
+
+**Output:**
+<img width="1263" height="212" alt="dm9" src="https://github.com/user-attachments/assets/b2e2b492-6ccf-48ea-8d5a-7f390ca38e0b" />
+
+
+**Question 10**
 ---
 Create a table named Employees with the following constraints:
 
@@ -187,79 +275,22 @@ Salary should be greater than 0.
 DepartmentID should be a foreign key referencing the Departments table.
 
 ```
-create table Employees(EmployeeID int PRIMARY KEY,FirstName NOT NULL,LastName not null,Email unique,Salary check(Salary>0),DepartmentID,FOREIGN KEY(DepartmentID) REFERENCES Departments(DepartmentID));
+CREATE TABLE Employees(
+    EmployeeID INTEGER PRIMARY KEY,
+    FirstName TEXT NOT NULL,
+    LastName TEXT NOT NULL,
+    Email TEXT UNIQUE,
+    Salary INTEGER CHECK (Salary>0),
+    DepartmentID INTEGER,
+    FOREIGN KEY (DepartmentID) REFERENCES DepartmentS(DepartmentID)
+)
 ```
 
 **Output:**
+<img width="1291" height="261" alt="dm10" src="https://github.com/user-attachments/assets/b8bb4c32-f1e3-41aa-8efa-d39111e7db80" />
+## MODULE 1 GRADE
 
-<img width="1880" height="1016" alt="image" src="https://github.com/user-attachments/assets/384addf6-c177-47fa-8d80-a9bc1c22f393" />
-
-**Question 7**
----
-Write a SQL Query  to Rename attribute "name" to "first_name"  and add mobilenumber as number ,DOB as Date,State as varchar(30) in the table Companies. 
-
-```
-alter table Companies rename column name to first_name;
-alter table Companies add column mobilenumb number;
-alter table Companies add column DOB Date;
-alter table Companies add column State varchar(30);
-```
-
-**Output:**
-
-<img width="1832" height="1027" alt="image" src="https://github.com/user-attachments/assets/add64a6d-8fba-43f6-b245-af927f9ba1f3" />
-
-**Question 8**
----
-Write a SQL query to modify the Student_details table by adding a new column Email of type VARCHAR(50) and updating the column MARKS to have a default value of 0.
-
-```
-alter table Student_details add column Email VARCHAR(50);
-alter table Student_details add column MARKS INT DEFAULT 0;
-```
-
-**Output:**
-
-<img width="1918" height="900" alt="image" src="https://github.com/user-attachments/assets/e57238a4-c751-4136-bca3-f2f69efa3410" />
-
-**Question 9**
----
-create a table named jobs including columns job_id, job_title, min_salary and max_salary, and make sure that, the default value for job_title is blank and min_salary is 8000 and max_salary is NULL will be entered automatically at the time of insertion if no value assigned for the specified columns.
-
-```
-CREATe table jobs (job_id,job_title DEFAULT ' ',min_salary DEFAULT 8000,max_salary DEFAULT NULL);
-```
-
-**Output:**
-
-<img width="1866" height="999" alt="image" src="https://github.com/user-attachments/assets/d20dd8a0-d0f3-41be-b19e-1513e7d2110f" />
-
-**Question 10**
----
-In the Books table, insert a record where some fields are NULL, another record where all fields are filled without any NULL values, and a third record where some fields are filled, and others are left as NULL.
-
-ISBN             Title                      Author           Publisher   Year
----------------  -------------------------  ---------------  ----------  ----------
-978-1234567890   Introduction to AI         John Doe
-978-9876543210   Deep Learning              Jane Doe         TechPress   2022
-978-1122334455   Cybersecurity Essentials   Alice Smith                  2021
-```
-insert into Books(ISBN,Title,Author) values ('978-1234567890','Introduction to AI','John Doe');
-insert into Books(ISBN,Title,Author,Publisher,Year) values('978-9876543210','Deep Learning','Jane Doe','TechPress',2022);
-insert into Books(ISBN,Title,Author,Year) values('978-1122334455','Cybersecurity Essentials','Alice Smith',2021);
-```
-
-**Output:**
-
-<img width="1833" height="953" alt="image" src="https://github.com/user-attachments/assets/da96fe96-b490-488e-ad7c-cb20db48175c" />
-
-
-**Screenshot of Module 1 SEB Completion Grades:**
-
-<img width="1983" height="820" alt="image" src="https://github.com/user-attachments/assets/ef387896-121a-4976-9e6a-23447744e748" />
-
-
-
+<img width="1156" height="72" alt="dm11" src="https://github.com/user-attachments/assets/8a640f13-9c98-4c9f-aa59-20b2528a7de0" />
 
 ## RESULT
 Thus, the SQL queries to implement different types of constraints and DDL commands have been executed successfully.
